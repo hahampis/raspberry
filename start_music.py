@@ -17,10 +17,12 @@ def kodi_is_playing():
 
 if __name__ == '__main__':
     my_kodi = Kodi('localhost', 80)
+    ## Turn on the TV via CEC over HDMI 
+    subprocess.call('/usr/bin/kodi-send --action="XBMC.CECActivateSource"', shell=True)
     if not kodi_is_playing():
-        ## Turn on the TV via CEC over HDMI 
-        subprocess.call('/usr/bin/kodi-send --action="XBMC.CECActivateSource"', shell=True)
         stations = my_kodi.Files.GetDirectory('plugin://plugin.audio.tuneinradio/?path=recents')
         station = stations['result']['files'][0]
         my_kodi.Player.Open.im_self.timeout = 120
         my_kodi.Player.Open(0, item={u'file': station['file']})
+    else:
+        print "Kodi is already playing"
