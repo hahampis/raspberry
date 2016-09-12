@@ -11,8 +11,6 @@ from kodipydent import Kodi
 subprocess.call('/usr/bin/kodi-send --action="XBMC.CECActivateSource"', shell=True)
 
 my_kodi = Kodi('localhost', 80)
-my_kodi.Player.Stop(0)
-time.sleep(5)
 stations = my_kodi.Files.GetDirectory('plugin://plugin.audio.tuneinradio/?path=recents')
 station = stations['result']['files'][0]
 my_kodi.Player.Open.im_self.timeout = 120
